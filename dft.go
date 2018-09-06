@@ -11,17 +11,17 @@ func main() {
 }
 
 const (
-	i2pi = (0+2i)*math.Pi
-	ftPrec = 0.001
+	i2pi    = (0 + 2i) * math.Pi
+	ftPrec  = 0.001
 	iftPrec = 0.01
 )
 
 func DFT(x ...complex128) (X []complex128) {
 	N := float64(len(x))
-	Ninv := complex(1/N,0)
+	Ninv := complex(1/N, 0)
 	X = make([]complex128, len(x))
 	for k := 0; k < len(x); k++ {
-		Xk := 0+0i
+		Xk := 0 + 0i
 		for n := 0; n < len(x); n++ {
 			Xk += x[n] * cmplx.Exp(-i2pi*(complex(float64(k*n), 0)*Ninv))
 		}
@@ -32,10 +32,10 @@ func DFT(x ...complex128) (X []complex128) {
 
 func IDFT(x ...complex128) (X []complex128) {
 	N := float64(len(x))
-	Ninv := complex(1/N,0)
+	Ninv := complex(1/N, 0)
 	X = make([]complex128, len(x))
 	for k := 0; k < len(x); k++ {
-		Xk := 0+0i
+		Xk := 0 + 0i
 		for n := 0; n < len(x); n++ {
 			Xk += x[n] * cmplx.Exp(i2pi*(complex(float64(k*n), 0)*Ninv))
 		}
@@ -44,16 +44,16 @@ func IDFT(x ...complex128) (X []complex128) {
 	return Round(iftPrec, X...)
 }
 
-func Round(prec float64, x ...complex128)[]complex128{
-	for i := range x{
+func Round(prec float64, x ...complex128) []complex128 {
+	for i := range x {
 		x[i] = complex(round(prec, real(x[i])), round(prec, imag(x[i])))
 	}
 	return x
 }
 
-func round(prec float64, v float64) float64{
-	iprec := 1/prec
-	return math.Round(v*iprec)*prec
+func round(prec float64, v float64) float64 {
+	iprec := 1 / prec
+	return math.Round(v*iprec) * prec
 }
 
 func ft0(x ...complex128) (X []complex128) {
