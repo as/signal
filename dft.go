@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	fmt.Println(DFT(1, 0, 0, 0, 0, 0, 0, 0))
+	fmt.Println(DFT(0,1,2,3,4,5,6,7))
 }
 
 const (
@@ -18,6 +18,7 @@ const (
 
 func DFT(x ...complex128) (X []complex128) {
 	N := float64(len(x))
+	//N := math.Sqrt(float64(len(x)))
 	Ninv := complex(1/N, 0)
 	X = make([]complex128, len(x))
 	for k := 0; k < len(x); k++ {
@@ -32,6 +33,7 @@ func DFT(x ...complex128) (X []complex128) {
 
 func IDFT(x ...complex128) (X []complex128) {
 	N := float64(len(x))
+	//N := math.Sqrt(float64(len(x)))
 	Ninv := complex(1/N, 0)
 	X = make([]complex128, len(x))
 	for k := 0; k < len(x); k++ {
@@ -39,6 +41,7 @@ func IDFT(x ...complex128) (X []complex128) {
 		for n := 0; n < len(x); n++ {
 			Xk += x[n] * cmplx.Exp(i2pi*(complex(float64(k*n), 0)*Ninv))
 		}
+		// X[k] = Ninv * Xk
 		X[k] = Xk
 	}
 	return Round(iftPrec, X...)
